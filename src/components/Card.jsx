@@ -6,19 +6,19 @@ import {Link, useNavigate} from "react-router-dom";
 
 
 //Card Item
-const Card = ({ shoe }) => {
+const Card = ({ bottle }) => {
   const cart = useSelector((state) => state.cart);
   // console.log(shoe);
-  const img = shoe.original_picture_url;
-  const price = shoe.retail_price_cents;
-  const desc = shoe.story_html;
-  const id = shoe.id;
+  const img = bottle.img;
+  const price = bottle.price;
+  const desc = bottle.description;
+  const id = bottle.id;
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const add = () => {
-    dispatch(addToCart(shoe));
+    dispatch(addToCart(bottle));
     toast.success("Added to cart");
   };
 
@@ -51,9 +51,9 @@ const Card = ({ shoe }) => {
             </p>
 
             <div className="flex  items-center justify-between">
-              {cart.some((item) => item.id === shoe.id) ? (
+              {cart.some((item) => item.id === bottle.id) ? (
                   <button
-                      onClick={() => remove(shoe.id)}
+                      onClick={() => remove(bottle.id)}
                       className="bg-red-400 text-white p-2 rounded-md text-sm "
                   >
                     Remove Item
@@ -66,7 +66,7 @@ const Card = ({ shoe }) => {
                     Add to Cart
                   </button>
               )}
-              <span className="text-xl font-semibold">₹ {price}</span>
+              <span className="text-xl font-semibold">{price} €</span>
             </div>
           </div>
         </div>

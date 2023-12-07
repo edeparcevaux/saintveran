@@ -2,28 +2,27 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/slices/CartSlice";
 import toast from "react-hot-toast";
+import {InputNumber} from "antd";
 
-const PreviewCard = ({ shoe }) => {
+const PreviewCard = ({ bottle }) => {
   const cart = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
 
   const add = () => {
-    const shoeInCart = cart.some((item) => item.id === shoe.id);
-    if (shoeInCart) {
+    const bottleInCart = cart.some((item) => item.id === bottle.id);
+    if (bottleInCart) {
       toast.error("You've Already Added This Item");
     } else {
-      dispatch(addToCart(shoe));
+      dispatch(addToCart(bottle));
       toast.success("Added to cart");
     }
   };
 
-  const img = shoe.original_picture_url;
-  const price = shoe.retail_price_cents;
-  const desc = shoe.story_html;
-  const name = shoe.name;
-  const brand = shoe.brand_name;
-  const gender = shoe.gender[0];
+  const img = bottle.img;
+  const price = bottle.price;
+  const desc = bottle.description;
+  const name = bottle.name;
 
   // const sizeRange = shoe.size_range.sort((a, b) => a - b);
   // const sizes = sizeRange.filter((size) => Math.floor(size) === size);
@@ -41,68 +40,18 @@ const PreviewCard = ({ shoe }) => {
               className="mx-auto md:h-[350px] md:w-[350px] object-cover"
             />
             <div className="">
-              <small className="uppercase">choose size</small>
+              <small className="uppercase">Choisir quantité</small>
               <div className="flex flex-wrap md:flex-nowrap gap-1">
-                <a
-                  href="#"
-                  className="grid place-items-center border px-3 py-2 hover:bg-gray-500 hover:text-white transition"
-                >
-                  <small>5</small>
-                </a>
-                <a
-                  href="#"
-                  className="grid place-items-center border px-3 py-2 cursor-not-allowed text-gray-300 transition"
-                >
-                  <small>6</small>
-                </a>
-                <a
-                  href="#"
-                  className="grid place-items-center border px-3 py-2 hover:bg-gray-500 hover:text-white transition"
-                >
-                  <small>7</small>
-                </a>
-                <a
-                  href="#"
-                  className="grid place-items-center border px-3 py-2 cursor-not-allowed text-gray-300 transition"
-                >
-                  <small>8</small>
-                </a>
-                <a
-                  href="#"
-                  className="grid place-items-center border px-3 py-2 cursor-not-allowed text-gray-300 transition"
-                >
-                  <small>9</small>
-                </a>
-                <a
-                  href="#"
-                  className="grid place-items-center border px-3 py-2 hover:bg-gray-500 hover:text-white transition"
-                >
-                  <small>10</small>
-                </a>
-                <a
-                  href="#"
-                  className="grid place-items-center border px-3 py-2 hover:bg-gray-500 hover:text-white transition"
-                >
-                  <small>11</small>
-                </a>
-                <a
-                  href="#"
-                  className="grid place-items-center border px-3 py-2 hover:bg-gray-500 hover:text-white transition"
-                >
-                  <small>12</small>
-                </a>
+                <InputNumber ></InputNumber>
               </div>
             </div>
           </div>
           <main className="text-gray-500 dark:text-white">
-            <small className="uppercase">
-              {gender}'s {brand}
-            </small>
             <h3 className="uppercase text-black dark:text-white text-2xl font-semibold">
               {name}
             </h3>
             <h3 className="text-2xl font-semibold mb-7 dark:text-white">
-              ₹ {price}
+              {price} €
             </h3>
             <small className="text-black  dark:text-white text-sm">
               {desc}
