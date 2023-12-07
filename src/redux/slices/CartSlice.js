@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = [];
 
+//Store
 const CartSlice = createSlice({
   name: "cart",
   initialState,
@@ -20,12 +21,12 @@ const CartSlice = createSlice({
     },
     increaseQty: (state, action) => {
       return state.map((shoe) =>
-        shoe.id === action.payload ? { ...shoe, qty: shoe.qty + 1 } : shoe
+          shoe.id === action.payload ? { ...shoe, qty: shoe.qty + 1 } : shoe
       );
     },
     decreaseQty: (state, action) => {
       return state.map((shoe) =>
-        shoe.id === action.payload ? { ...shoe, qty: shoe.qty - 1 } : shoe
+          shoe.id === action.payload ? { ...shoe, qty: shoe.qty - 1 } : shoe
       );
     },
   },
