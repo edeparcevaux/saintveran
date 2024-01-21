@@ -1,11 +1,9 @@
 import React from "react";
-import Card from "../components/Card";
+import Card from "../components/Card.tsx";
 import {data} from "../assets/data";
-import CardBottle from "../components/CardBottle.tsx";
 
 const Explore = () => {
   const bottle = data.bottle;
-
   const filteredItems = bottle.filter(
     (s) => s.price !== null && s.img !== null
   );
