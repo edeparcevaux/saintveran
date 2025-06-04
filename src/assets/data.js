@@ -9,7 +9,7 @@ export const data = {
   },
   bottle: [
     {
-      id: 1,
+      id: "1",
       name: "St Véran - Blanc",
       tag: ["Blanc", "2021"],
       year: "2021",
@@ -19,7 +19,7 @@ export const data = {
       price: 12.20,
     },
     {
-      id: 2,
+      id: "2",
       name: "Bordeaux - Rouge",
       tag: ["Bordeaux", "Rouge"],
       year: "2011",
@@ -29,7 +29,7 @@ export const data = {
       price: 8.20,
     },
     {
-      id: 3,
+      id: "3",
       name: "Bourgogne",
       tag: ["Blanc", "2021"],
       year: "2021",
@@ -39,7 +39,7 @@ export const data = {
       price: 15.20,
     },
     {
-      id: 4,
+      id: "4",
       name: "St Véran - Blanc",
       tag: ["Blanc", "2021"],
       year: "2021",
@@ -50,7 +50,7 @@ export const data = {
       price: 12.20,
     },
     {
-      id: 5,
+      id: "5",
       name: "St Véran - Blanc",
       tag: ["Blanc", "2021"],
       year: "2021",
@@ -61,7 +61,7 @@ export const data = {
       price: 12.20,
     },
     {
-      id: 6,
+      id: "6",
       name: "St Véran - Blanc",
       tag: ["Blanc", "2021"],
       year: "2021",
@@ -71,7 +71,7 @@ export const data = {
       price: 12.20,
     },
     {
-      id: 7,
+      id: "7",
       name: "St Véran - Blanc",
       tag: ["Blanc", "2021"],
       year: "2021",

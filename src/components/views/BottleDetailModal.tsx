@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { InputNumber, Modal } from "antd";
-import { BottleResponseDto } from "../../state/dto/BottleResponseDto";
+import { BottleResponseDto } from "../../state/bottle/dto/BottleResponseDto";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";

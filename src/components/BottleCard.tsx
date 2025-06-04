@@ -1,14 +1,21 @@
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "../redux/slices/CartSlice";
+import {useDispatch} from "react-redux";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "antd";
-import { useState } from "react";
+import {FunctionComponent, useState} from "react";
 import BottleDetailModal from "./views/BottleDetailModal";
+import {BottleResponseDto} from "../state/bottle/dto/BottleResponseDto";
+import {cartStore} from "../state/cart/CartStore";
+import {useStore} from "effector-react";
+import {setCart} from "../state/cart/CartEvent";
 
+export interface BottleCardProps{
+  bottle : BottleResponseDto
+}
 //Card Item
-const Card = ({ bottle }) => {
-  const cart = useSelector((state) => state.cart);
+const BottleCard: FunctionComponent<BottleCardProps> = ({ bottle}) => {
+
+  const carts = useStore(cartStore);
   const img = bottle.img;
   const price = bottle.price;
   const desc = bottle.description;
@@ -18,13 +25,19 @@ const Card = ({ bottle }) => {
 
   const dispatch = useDispatch();
 
+
   const add = () => {
-    dispatch(addToCart(bottle));
+    setCart({
+      bottles : [...carts.bottles, bottle
+  ]
+  })
     toast.success("Added to cart");
   };
 
   const remove = (itemIdx) => {
-    dispatch(removeFromCart(itemIdx));
+    setCart({
+      bottles : carts.bottles.filter((card) => card.id !== itemIdx)
+    })
     toast.error("Removed item from cart");
   };
 
@@ -53,7 +66,7 @@ const Card = ({ bottle }) => {
           </p>
 
           <div className="flex  items-center justify-between">
-            {cart.some((item) => item.id === bottle.id) ? (
+            {carts.bottles.some((item) => item.id === bottle.id) ? (
               <button
                 onClick={() => remove(bottle.id)}
                 className="bg-red-400 text-white p-2 rounded-md text-sm "
@@ -81,4 +94,4 @@ const Card = ({ bottle }) => {
   );
 };
 
-export default Card;
+export default BottleCard;
