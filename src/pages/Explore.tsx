@@ -1,6 +1,7 @@
 import {data} from "../assets/data";
 import WineCard from "../components/WineCard";
 import {BottleResponseDto} from "../state/bottle/dto/BottleResponseDto";
+import PageLayout from "../components/layouts/PageLayout";
 
 const Explore = () => {
   const bottle = data.bottle as BottleResponseDto[];
@@ -13,13 +14,16 @@ const Explore = () => {
   });
 
   return (
-    <div className="">
-      <div className="w-full min-h-fit p-10 md:p-20 grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-x-6 lg:grid-cols-3 lg:gap-8 xl:grid-cols-4 xl:gap-10mx-auto ">
-        {items.map((bottle, idx) => (
-          <WineCard key={bottle.id} bottle={bottle}/>
-        ))}
+      <PageLayout>
+      <div>
+        <h1>Nos produits {bottle.length} résultat(s)</h1>
+        <div className="gridContainer">
+          {items.map((bottle, idx) => (
+              <WineCard key={bottle.id} bottle={bottle}/>
+          ))}
+        </div>
       </div>
-    </div>
+      </PageLayout>
   );
 };
 
