@@ -1,5 +1,5 @@
 import {data} from "../assets/data";
-import WineCard from "../components/WineCard";
+import WineCard from "../components/card/WineCard";
 import {BottleResponseDto} from "../state/bottle/dto/BottleResponseDto";
 import PageLayout from "../components/layouts/PageLayout";
 

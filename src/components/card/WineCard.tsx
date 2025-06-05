@@ -1,11 +1,11 @@
 import toast from "react-hot-toast";
 import {Button, Card} from "antd";
 import {FunctionComponent, useState} from "react";
-import BottleDetailModal from "./views/BottleDetailModal";
-import {BottleResponseDto} from "../state/bottle/dto/BottleResponseDto";
-import {cartStore} from "../state/cart/CartStore";
+import BottleDetailModal from "../views/BottleDetailModal";
+import {BottleResponseDto} from "../../state/bottle/dto/BottleResponseDto";
+import {cartStore} from "../../state/cart/CartStore";
 import {useUnit} from "effector-react";
-import {setCart} from "../state/cart/CartEvent";
+import {setCart} from "../../state/cart/CartEvent";
 import { MinusOutlined, PlusOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 
 export interface BottleCardProps{
