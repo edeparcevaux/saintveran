@@ -3,11 +3,11 @@ import {Link} from "react-router-dom";
 import { logo, gif } from "../assets/data";
 import { FaShoppingCart, FaTimes } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
-import {useStore} from "effector-react";
+import {useUnit} from "effector-react";
 import {cartStore} from "../state/cart/CartStore.js";
 
 const Navbar = () => {
-  const cart = useStore(cartStore).bottles
+  const cart = useUnit(cartStore)
 
   const [click, setClick] = useState(false);
   const mobile = () => {

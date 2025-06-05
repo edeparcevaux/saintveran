@@ -1,12 +1,10 @@
-import {useDispatch} from "react-redux";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { Button } from "antd";
+import {Button, Card} from "antd";
 import {FunctionComponent, useState} from "react";
 import BottleDetailModal from "./views/BottleDetailModal";
 import {BottleResponseDto} from "../state/bottle/dto/BottleResponseDto";
 import {cartStore} from "../state/cart/CartStore";
-import {useStore} from "effector-react";
+import {useUnit} from "effector-react";
 import {setCart} from "../state/cart/CartEvent";
 import { MinusOutlined, PlusOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 
@@ -16,7 +14,7 @@ export interface BottleCardProps{
 //Card Item
 const WineCard: FunctionComponent<BottleCardProps> = ({ bottle}) => {
 
-  const carts = useStore(cartStore);
+  const carts = useUnit(cartStore);
   const img = bottle.img;
   const bottlePrice = bottle.price;
   const casePrice = bottlePrice * 6;
@@ -38,31 +36,32 @@ const WineCard: FunctionComponent<BottleCardProps> = ({ bottle}) => {
 
 
   const add = () => {
-    setCart({
-      bottles : [...carts.bottles, bottle
-  ]
-  })
+    const existingCart = carts.find(cart => cart.bottle.id === bottle.id);
+
+    if (!existingCart) {
+      setCart([...carts, { bottle, numberBottleCase: quantity }]);
+    } else {
+      const updatedCarts = carts.map(cart =>
+          cart.bottle.id === bottle.id
+              ? { ...cart, numberBottleCase: cart.numberBottleCase + quantity }
+              : cart
+      );
+      setCart(updatedCarts);
+    }
+
     toast.success("Added to cart");
   };
 
-  const remove = (itemIdx) => {
-    setCart({
-      bottles : carts.bottles.filter((card) => card.id !== itemIdx)
-    })
-    toast.error("Removed item from cart");
-  };
-
   return (
-    <div>
-      <div className="w-[300px] h-[420px] shadow-sm rounded-2xl p-4 bg-slate-50 dark:bg-[#1f1b24] dark:hover:bg-[#121015] dark:text-white dark:outline-none dark:border-none border border-slate-100 outline outline-slate-100  hover:shadow-2xl relative">
+      <>
+    <Card  className="cardContainer">
         <div className=" flex flex-col gap-6">
-          <div onClick={() => setIsOpen(true)}>
+          <div onClick={() => setIsOpen(true)} className="coverImage">
             <img
                 src={img}
                 width={200}
                 height={200}
                 alt="bottle"
-                className="coverImage"
             />
             <Button
                 onClick={() => setIsOpen(true)}
@@ -71,7 +70,9 @@ const WineCard: FunctionComponent<BottleCardProps> = ({ bottle}) => {
               preview
             </Button>
           </div>
-
+          <span className="title">
+            {bottle.name}
+          </span>
           <p className="text-base font-medium max-h-[96px] overflow-y-hidden">
             {desc.split(" ").slice(0, 20).join(" ") + "..."}
           </p>
@@ -104,36 +105,20 @@ const WineCard: FunctionComponent<BottleCardProps> = ({ bottle}) => {
                 />
               </div>
 
-              <Button type="primary" icon={<ShoppingCartOutlined/>} className="addToCart">
-                AJOUTER AU PANIER
+              <Button icon={<ShoppingCartOutlined/>} className="addToCart" onClick={add}>
+                {"Ajouter au panier"}
               </Button>
             </div>
-            <div className="flex  items-center justify-between">
-              {carts.bottles.some((item) => item.id === bottle.id) ? (
-                  <button
-                      onClick={() => remove(bottle.id)}
-                      className="bg-red-400 text-white p-2 rounded-md text-sm "
-                  >
-                    Remove Item
-                  </button>
-              ) : (
-                  <button
-                      onClick={add}
-                      className="bg-black dark:bg-slate-800 dark:hover:bg-black text-white p-2 rounded-md text-sm "
-                >
-                  Add to Cart
-                </button>
-            )}
-            <span className="text-xl font-semibold">{bottlePrice} €</span>
-          </div>
         </div>
-      </div>
-      <BottleDetailModal
-          bottle={bottle}
-          open={isOpen}
-          onCancel={() => setIsOpen(false)}
-      />
-    </div>
+
+
+    </Card>
+        <BottleDetailModal
+            bottle={bottle}
+            open={isOpen}
+            onCancel={() => setIsOpen(false)}
+        />
+      </>
   );
 };
 
