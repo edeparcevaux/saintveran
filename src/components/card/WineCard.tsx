@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import {Button, Card} from "antd";
+import {Button, Card, InputNumber} from "antd";
 import {FunctionComponent, useState} from "react";
 import BottleDetailModal from "../views/BottleDetailModal";
 import {BottleResponseDto} from "../../state/bottle/dto/BottleResponseDto";
@@ -26,12 +26,9 @@ const WineCard: FunctionComponent<BottleCardProps> = ({ bottle}) => {
 
 
 
-  const increment = () => {
-    setQuantity(quantity+1)
+  const onChange = (numberBottleCase) => {
+    setQuantity(numberBottleCase)
   }
-  const decrement = () => {
-    if (quantity > 1) setQuantity(quantity - 1);
-  };
 
 
 
@@ -88,23 +85,7 @@ const WineCard: FunctionComponent<BottleCardProps> = ({ bottle}) => {
           </div>
 
           <div className="counterRow">
-            <div className="counterBox">
-                <Button
-                    icon={<MinusOutlined/>}
-                    size="small"
-                    type="text"
-                    onClick={decrement}
-                    disabled={quantity === 1}
-                />
-                <span className="counterQty">{quantity} caisse{quantity > 1 ? "s" : ""}</span>
-                <Button
-                    icon={<PlusOutlined/>}
-                    size="small"
-                    type="text"
-                    onClick={increment}
-                />
-              </div>
-
+            <InputNumber className="counterBox" min={1} defaultValue={quantity} value={quantity} onChange={(value) => onChange(value)} suffix="caisse(s)"/>
               <Button icon={<ShoppingCartOutlined/>} className="addToCart" onClick={add}>
                 {"Ajouter au panier"}
               </Button>
