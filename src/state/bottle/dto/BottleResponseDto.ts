@@ -1,4 +1,4 @@
-import { ApiResponseDto } from "../rest.types";
+import { ApiResponseDto } from "../../rest.types";
 
 export interface BottleResponseDto extends ApiResponseDto {
   name: string;

@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import {Link, useNavigate} from "react-router-dom";
+import { useState } from "react";
+import {Link} from "react-router-dom";
 import { logo, gif } from "../assets/data";
 import { FaShoppingCart, FaTimes } from "react-icons/fa";
-import { useSelector } from "react-redux";
 import { GiHamburgerMenu } from "react-icons/gi";
+import {useUnit} from "effector-react";
+import {cartStore} from "../state/cart/CartStore.js";
 
 const Navbar = () => {
-  const cart = useSelector((state) => state.cart);
+  const cart = useUnit(cartStore)
 
   const [click, setClick] = useState(false);
   const mobile = () => {
@@ -14,9 +15,9 @@ const Navbar = () => {
   };
 
   return (
-      <div className="p-1 md:p-4 flex items-center justify-between h-10 w-full">
+      <div className="p-1 md:p-4 flex items-center justify-between h-50 w-full">
         <div className="flex flex-row items-center gap-2">
-          <img src={logo} alt="" height={50} width={50} className="dark:hidden" />
+          <img src="header-logo.png" alt="" height={100} width={100} className="dark:hidden" />
           <img
               src={gif}
               alt=""
@@ -25,9 +26,8 @@ const Navbar = () => {
               className="hidden dark:block"
           />
           <span className="text-2xl font-[1000] text-center dark:text-white">
-          SNKR.
-          <span className="font-extrabold text-sm">hub</span>
-        </span>
+            Domaine de la batie
+          </span>
         </div>
 
         <ul className="hidden md:flex text-sm  text-black dark:text-white font-semibold md:tracking-wide  flex-col  gap-2 md:flex-row  md:gap-8">

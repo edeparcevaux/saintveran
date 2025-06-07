@@ -1,7 +1,7 @@
-import React from "react";
-import Navbar from "./components/Navbar";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Cart, Explore, Home, Preview } from "./pages/index";
+import "./styles/styles.scss";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
