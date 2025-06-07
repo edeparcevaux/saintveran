@@ -1,4 +1,4 @@
-import {FunctionComponent, ReactElement} from "react";
+import {FunctionComponent, ReactElement, useState} from "react";
 import {CartDto} from "../../state/cart/dto/cart.dto";
 import {Button, InputNumber} from "antd";
 import { DeleteOutlined} from "@ant-design/icons";
@@ -11,10 +11,10 @@ interface PageLayoutProps {
     item: CartDto;
 };
 
-const CartCard2: FunctionComponent<PageLayoutProps> = ({item}) => {
+const CartCard: FunctionComponent<PageLayoutProps> = ({item}) => {
     const cart = useUnit(cartStore)
     const bottle = item.bottle
-    const quantity = item.numberBottleCase
+    const [quantity, setQuantity] = useState<number>(item.numberBottleCase)
     const total = bottle.price*6*quantity
 
 
@@ -22,11 +22,24 @@ const CartCard2: FunctionComponent<PageLayoutProps> = ({item}) => {
         setCart(cart.filter(s => s.bottle.id !== bottle.id))
     }
 
-    // const onChange = (numberBottleCase1, bottle) => {
-    //     const bottleToChange = cart.filter(s => s.bottle.id !== bottle.id)
-    //     setCart([...bottleToChange, {bottle: bottle, numberBottleCase: numberBottleCase1}])
-    //     console.log(cart)
-    // }
+    const onChange = (numberBottleCase, bottle) => {
+        setQuantity(numberBottleCase)
+        const existing = cart.find(item => item.bottle.id === bottle.id);
+
+        let updatedCart: CartDto[];
+
+        if (existing) {
+            updatedCart = cart.map(item =>
+                item.bottle.id === bottle.id
+                    ? { ...item, numberBottleCase }
+                    : item
+            );
+        } else {
+            updatedCart = [...cart, { bottle, numberBottleCase }];
+        }
+
+        setCart(updatedCart);
+    }
 
 return(
     <div className="cartItem" key={bottle.id}>
@@ -35,8 +48,8 @@ return(
             <h5 >{bottle.name}</h5>
             <span className="secondary">En stock</span>
             <div className="cartActions">
-                <InputNumber min={1} defaultValue={quantity}/>
-                <Button icon={<DeleteOutlined/>} type="link">
+                <InputNumber min={1} defaultValue={quantity} value={quantity} onChange={(value) => onChange(value, bottle)}/>
+                <Button icon={<DeleteOutlined/>} type="link" onClick={() => onDelete(bottle)}>
                     Supprimer
                 </Button>
             </div>
@@ -45,6 +58,6 @@ return(
     </div>)
 };
 
-export default CartCard2;
+export default CartCard;
 
 
